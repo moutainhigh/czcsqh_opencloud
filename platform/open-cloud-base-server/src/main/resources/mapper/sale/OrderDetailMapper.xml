@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.opencloud.base.server.mapper.sale.OrderDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.opencloud.base.client.model.entity.sale.OrderDetail">
+        <id column="order_detail_id" property="orderDetailId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="order_id" property="orderId" />
+        <result column="user_id" property="userId" />
+        <result column="product_package_id" property="productPackageId" />
+        <result column="product_package_name" property="productPackageName" />
+        <result column="product_package_num" property="productPackageNum" />
+        <result column="original_price" property="originalPrice" />
+        <result column="coupon_amount" property="couponAmount" />
+        <result column="discounted_amount" property="discountedAmount" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        update_time,
+        order_detail_id, order_id, user_id, product_package_id, product_package_name, product_package_num, original_price, coupon_amount, discounted_amount, status
+    </sql>
+
+    <!--自定义关联查询-->
+    <!-- 表名 -->
+    <sql id="t_name">sale_order_detail</sql>
+    <!-- 别名 -->
+    <sql id="t_alias">sale_order_detail as detail</sql>
+    <!--外键表关联定义 -->
+    <sql id="join"></sql>
+
+    <!-- 自定义查询单个实体 -->
+    <select id="getEntityMap" resultType="com.opencloud.common.mybatis.EntityMap">
+        SELECT * FROM
+        <include refid="t_alias"/>
+        <include refid="join"/>
+        ${ew.customSqlSegment}
+    </select>
+
+    <!-- 自定义关联查询分页 -->
+    <select id="pageList" resultType="com.opencloud.common.mybatis.EntityMap">
+        select ${ew.select} FROM
+        <include refid="t_alias"/>
+        <include refid="join"/>
+        ${ew.customSqlSegment}
+    </select>
+</mapper>

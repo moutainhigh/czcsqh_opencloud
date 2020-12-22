@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.opencloud.base.server.mapper.HouseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.opencloud.base.client.model.entity.House">
+        <id column="house_id" property="houseId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="house_owner_id" property="houseOwnerId" />
+        <result column="user_id" property="userId" />
+        <result column="title" property="title" />
+        <result column="layout" property="layout" />
+        <result column="rental" property="rental" />
+        <result column="water_rate" property="waterRate" />
+        <result column="power_rate" property="powerRate" />
+        <result column="floor" property="floor" />
+        <result column="area" property="area" />
+        <result column="roadside" property="roadside" />
+        <result column="detail" property="detail" />
+        <result column="remark" property="remark" />
+        <result column="province" property="province" />
+        <result column="city" property="city" />
+        <result column="district" property="district" />
+        <result column="address_detail" property="addressDetail" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        update_time,
+        house_id, house_owner_id, user_id, title, layout, rental, water_rate, power_rate, floor, area, roadside, detail, remark, province, city, district, address_detail, status
+    </sql>
+
+    <!--自定义关联查询-->
+    <!-- 表名 -->
+    <sql id="t_name">house</sql>
+    <!-- 别名 -->
+    <sql id="t_alias">house as house</sql>
+    <!--外键表关联定义 -->
+    <sql id="join"></sql>
+
+    <!-- 自定义查询单个实体 -->
+    <select id="getEntityMap" resultType="com.opencloud.common.mybatis.EntityMap">
+        SELECT * FROM
+        <include refid="t_alias"/>
+        <include refid="join"/>
+        ${ew.customSqlSegment}
+    </select>
+
+    <!-- 自定义关联查询分页 -->
+    <select id="pageList" resultType="com.opencloud.common.mybatis.EntityMap">
+        select ${ew.select} FROM
+        <include refid="t_alias"/>
+        <include refid="join"/>
+        ${ew.customSqlSegment}
+    </select>
+</mapper>

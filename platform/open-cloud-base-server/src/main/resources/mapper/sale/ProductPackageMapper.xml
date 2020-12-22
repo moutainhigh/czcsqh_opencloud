@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.opencloud.sale.server.mapper.ProductPackageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.opencloud.sale.client.model.entity.ProductPackage">
+        <id column="product_package_id" property="productPackageId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="product_package_name" property="productPackageName"/>
+        <result column="original_price" property="originalPrice"/>
+        <result column="package_price" property="packagePrice"/>
+        <result column="product_package_sort" property="productPackageSort"/>
+        <result column="activity_tag" property="activityTag"/>
+        <result column="product_package_desc" property="productPackageDesc"/>
+        <result column="product_package_remark" property="productPackageRemark"/>
+        <result column="product_package_detail" property="productPackageDetail"/>
+        <result column="on_shelves" property="onShelves"/>
+        <result column="product_package_unit" property="productPackageUnit"/>
+        <result column="large_image_url" property="coverImageUrl"/>
+        <result column="large_image_id" property="largeImageId"/>
+        <result column="large_image_url" property="largeImageUrl"/>
+        <result column="medium_image_id" property="mediumImageId"/>
+        <result column="medium_image_url" property="mediumImageUrl"/>
+        <result column="small_image_id" property="smallImageId"/>
+        <result column="small_image_url" property="smallImageUrl"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        update_time,
+        product_package_id, product_package_name, original_price, package_price, product_package_sort, product_package_desc, product_package_remark, product_package_detail,
+        activity_tag, on_shelves, product_package_unit, cover_image_url, large_image_id, large_image_url, medium_image_id, medium_image_url, small_image_id, small_image_url, status
+    </sql>
+
+    <!--自定义关联查询-->
+    <!-- 表名 -->
+    <sql id="t_name">sale_product_package</sql>
+    <!-- 别名 -->
+    <sql id="t_alias">sale_product_package as package</sql>
+    <!--外键表关联定义 -->
+    <sql id="join"></sql>
+
+    <!-- 自定义查询单个实体 -->
+    <select id="getEntityMap" resultType="com.opencloud.common.mybatis.EntityMap">
+        SELECT * FROM
+        <include refid="t_alias"/>
+        <include refid="join"/>
+        ${ew.customSqlSegment}
+    </select>
+
+    <!-- 自定义关联查询分页 -->
+    <select id="pageList" resultType="com.opencloud.common.mybatis.EntityMap">
+        select ${ew.select} FROM
+        <include refid="t_alias"/>
+        <include refid="join"/>
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="getAllProductPackageSalesNum" resultType="java.util.Map">
+        select a.product_package_id as productPackageId,sum(a.product_package_num) as salesVolume
+        from sale_order_detail a
+        left join sale_order b on a.order_id = b.order_id
+        where b.pay_time is not null group by a.product_package_id;
+
+    </select>
+</mapper>
