@@ -19,12 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * @author: liuyadu
- * @date: 2019/5/24 13:31
- * @description:
- */
-@Api(tags = "当前登陆用户")
 @RestController
 public class CurrentUserController {
 

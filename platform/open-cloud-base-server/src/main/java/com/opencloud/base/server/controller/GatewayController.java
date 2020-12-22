@@ -19,14 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 网关接口
- *
- * @author: liuyadu
- * @date: 2019/3/12 15:12
- * @description:
- */
-@Api(tags = "网关对外接口")
 @RestController
 public class GatewayController implements IGatewayServiceClient {
 

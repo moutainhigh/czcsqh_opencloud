@@ -15,12 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 产品套餐表 前端控制器
- *
- * @author liyueping
- * @date 2019-11-29
- */
 @Api(value = "产品套餐表", tags = "产品套餐表")
 @RestController
 @RequestMapping("productPackage")

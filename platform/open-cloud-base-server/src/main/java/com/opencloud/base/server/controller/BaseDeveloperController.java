@@ -21,12 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 系统用户信息
- *
- * @author liuyadu
- */
-@Api(tags = "系统用户管理")
 @RestController
 public class BaseDeveloperController implements IBaseDeveloperServiceClient {
     @Autowired

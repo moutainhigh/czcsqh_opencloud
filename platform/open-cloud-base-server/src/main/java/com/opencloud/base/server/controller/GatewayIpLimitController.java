@@ -16,14 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-/**
- * 网关IP访问控制
- *
- * @author: liuyadu
- * @date: 2019/3/12 15:12
- * @description:
- */
-@Api(tags = "网关IP访问控制")
 @RestController
 public class GatewayIpLimitController {
 

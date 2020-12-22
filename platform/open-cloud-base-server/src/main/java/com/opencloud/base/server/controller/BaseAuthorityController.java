@@ -27,12 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author: liuyadu
- * @date: 2018/11/26 18:20
- * @description:
- */
-@Api(tags = "系统权限管理")
 @RestController
 public class BaseAuthorityController implements IBaseAuthorityServiceClient {
 

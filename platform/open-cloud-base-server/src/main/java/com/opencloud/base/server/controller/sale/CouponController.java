@@ -192,23 +192,6 @@ public class CouponController {
         return ResultBody.ok();
     }
 
-    /**
-     * 批量删除数据
-     *
-     * @return
-     */
-    @ApiOperation(value = "批量删除数据", notes = "批量删除数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
-    })
-    @PostMapping("/batch/remove")
-    public ResultBody batchRemove(
-            @RequestParam(value = "ids") String ids
-    ) {
-        couponService.removeByIds(Arrays.asList(ids.split(",")));
-        return ResultBody.ok();
-    }
-
 
 //    @ApiOperation(value = "增加优惠券投放量", notes = "增加优惠券投放量")
 //    @ApiImplicitParams({

@@ -18,12 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 用户产品表 前端控制器
- *
- * @author liyueping
- * @date 2019-11-29
- */
+
 @Api(value = "用户产品表", tags = "用户产品表")
 @RestController
 @RequestMapping("userProductItem")

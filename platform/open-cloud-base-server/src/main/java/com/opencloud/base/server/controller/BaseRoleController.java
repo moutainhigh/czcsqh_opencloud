@@ -17,10 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author liuyadu
- */
-@Api(tags = "系统角色管理")
 @RestController
 public class BaseRoleController {
     @Autowired

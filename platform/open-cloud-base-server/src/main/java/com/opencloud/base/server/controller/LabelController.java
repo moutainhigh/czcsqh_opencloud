@@ -35,25 +35,36 @@ import java.util.Map;
     *
     * @return
     */
-    @ApiOperation(value = "获取分页数据", notes = "获取分页数据")
+    @ApiOperation(value = "获取所有房源标签", notes = "获取所有房源标签")
     @GetMapping(value = "/list")
     public ResultBody<IPage<Label>>list(@RequestParam(required = false) Map map){
         PageParams pageParams = new PageParams(map);
-        Label query = pageParams.mapToObject(Label.class);
+        pageParams.setPage(1);
+        pageParams.setSize(9999);
         QueryWrapper<Label> queryWrapper = new QueryWrapper();
         return ResultBody.ok().data(targetService.page(pageParams,queryWrapper));
     }
 
-    /**
-     * 根据ID查找数据
-     */
-    @ApiOperation(value = "根据ID查找数据", notes = "根据ID查找数据")
-    @ResponseBody
-    @RequestMapping("/get")
-    public ResultBody<Label> get(@RequestParam("id") Long id){
-        Label entity = targetService.getById(id);
-        return ResultBody.ok().data(entity);
+    @ApiOperation(value = "增加房源标签",notes = "增加房源标签")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "标签文字" ,name = "labelText" ,required = true)
+    })
+    @PostMapping("/add")
+    public ResultBody add(@RequestParam("labelText")String labelText){
+        Label label = new Label();
+        label.setLabelText(labelText);
+        targetService.save(label);
+        return ResultBody.ok();
     }
 
+    @ApiOperation(value = "删除房源标签" ,notes = "删除房源标签")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "labelId",name = "labelId",required = true)
+    })
+    @PostMapping("/del")
+    public ResultBody delete(@RequestParam("labelId")Long labelId){
+        targetService.removeById(labelId);
+        return ResultBody.ok();
+    }
 
 }

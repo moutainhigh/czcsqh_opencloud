@@ -19,12 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.Map;
 
-/**
- * 系统用户信息
- *
- * @author liuyadu
- */
-@Api(tags = "系统应用管理")
 @RestController
 public class BaseAppController implements IBaseAppServiceClient {
     @Autowired
