@@ -28,7 +28,7 @@ public class HouseFile extends AbstractEntity {
 
     private Long houseId;
 
-    @ApiModelProperty(value = "文件类型")
+    @ApiModelProperty(value = "文件类型，1-封面图，2-详情图，3-详情视频")
     private String type;
 
     @ApiModelProperty(value = "文件路径")

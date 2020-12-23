@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@Api(value = "用户产品表", tags = "用户产品表")
+//@Api(value = "用户产品表", tags = "用户产品表")
 @RestController
 @RequestMapping("userProductItem")
 public class UserProductItemController {

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @author liyueping
  * @date 2019-11-28
  */
-@Api(value = "微信支付实际单号表", tags = "微信支付实际单号表")
+//@Api(value = "微信支付实际单号表", tags = "微信支付实际单号表")
 @RestController
 @RequestMapping("wxPayOrder")
 public class WxPayOrderController{

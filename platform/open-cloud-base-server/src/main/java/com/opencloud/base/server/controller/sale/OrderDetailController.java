@@ -24,7 +24,7 @@ import java.util.Map;
  * @author liyueping
  * @date 2019-11-29
  */
-@Api(value = "订单明细表", tags = "订单明细表")
+//@Api(value = "订单明细表", tags = "订单明细表")
 @RestController
 @RequestMapping("orderDetail")
 public class OrderDetailController {

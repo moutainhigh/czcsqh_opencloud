@@ -29,7 +29,7 @@ import java.util.Map;
  * @author liyueping
  * @date 2020-03-09
  */
-@Api(value = "优惠券表", tags = "优惠券表")
+//@Api(value = "优惠券表", tags = "优惠券表")
 @RestController
 @RequestMapping("coupon")
 public class CouponController {

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@Api(value = "产品套餐表", tags = "产品套餐表")
+//@Api(value = "产品套餐表", tags = "产品套餐表")
 @RestController
 @RequestMapping("productPackage")
 public class ProductPackageController {

@@ -49,7 +49,7 @@ public class HouseController {
      */
     @ApiOperation(value = "根据ID查找数据", notes = "根据ID查找数据")
     @ResponseBody
-    @RequestMapping("/get")
+    @GetMapping("/get")
     public ResultBody<House> get(@RequestParam("id") Long id) {
         House entity = targetService.getById(id);
         return ResultBody.ok().data(entity);

@@ -46,6 +46,9 @@ public class House extends AbstractEntity {
     @ApiModelProperty(value = "租赁方式，整租、合租")
     private String rentType;
 
+    @ApiModelProperty(value = "租赁周期，月")
+    private String rentCycle;
+
     @ApiModelProperty(value = "租金")
     private BigDecimal rental;
 
@@ -54,6 +57,9 @@ public class House extends AbstractEntity {
 
     @ApiModelProperty(value = "电费")
     private BigDecimal powerRate;
+
+    @ApiModelProperty(value = "方位，朝向")
+    private String position;
 
     @ApiModelProperty(value = "楼层")
     private Integer floor;
@@ -85,7 +91,19 @@ public class House extends AbstractEntity {
     @ApiModelProperty(value = "房源状态")
     private Integer status;
 
-    //附带的一下信息
+    //封面地址
+    @TableField(exist = false)
+    private String coverImgUrl;
+
+    //标签
+    @TableField(exist = false)
+    private List<String> label;
+
+    //附带的一些信息
     @TableField(exist = false)
     private List<Map> attachInfo;
+
+    //是否收藏了
+    @TableField(exist = false)
+    private String isFavorite;
 }

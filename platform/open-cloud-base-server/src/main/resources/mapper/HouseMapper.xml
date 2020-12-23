@@ -12,8 +12,10 @@
         <result column="title" property="title" />
         <result column="layout" property="layout" />
         <result column="rental" property="rental" />
+        <result column="rent_type" property="rentType" />
         <result column="water_rate" property="waterRate" />
         <result column="power_rate" property="powerRate" />
+        <result column="position" property="position" />
         <result column="floor" property="floor" />
         <result column="area" property="area" />
         <result column="roadside" property="roadside" />
@@ -30,7 +32,7 @@
     <sql id="Base_Column_List">
         create_time,
         update_time,
-        house_id, house_owner_id, user_id, title, layout, rental, water_rate, power_rate, floor, area, roadside, detail, remark, province, city, district, address_detail, status
+        house_id, house_owner_id, user_id, title, layout,rent_type, rental, water_rate, power_rate, position, floor, area, roadside, detail, remark, province, city, district, address_detail, status
     </sql>
 
     <!--自定义关联查询-->

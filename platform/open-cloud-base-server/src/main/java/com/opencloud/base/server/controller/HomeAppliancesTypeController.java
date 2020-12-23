@@ -50,7 +50,7 @@ public class HomeAppliancesTypeController {
      */
     @ApiOperation(value = "根据ID查找数据", notes = "根据ID查找数据")
     @ResponseBody
-    @RequestMapping("/get")
+    @GetMapping("/get")
     public ResultBody<HomeAppliancesType> get(@RequestParam("id") Long id) {
         HomeAppliancesType entity = targetService.getById(id);
         return ResultBody.ok().data(entity);

@@ -23,7 +23,7 @@ import java.util.Map;
  * @author yanjiajun
  * @date 2020-10-28
  */
-@Api(value = "房源文件表（图片，视频）", tags = "房源文件表（图片，视频）")
+//@Api(value = "房源文件表（图片，视频）", tags = "房源文件表（图片，视频）")
 @RestController
 @RequestMapping("houseFile")
 public class HouseFileController {
@@ -50,7 +50,7 @@ public class HouseFileController {
      */
     @ApiOperation(value = "根据ID查找数据", notes = "根据ID查找数据")
     @ResponseBody
-    @RequestMapping("/get")
+    @GetMapping("/get")
     public ResultBody<HouseFile> get(@RequestParam("id") Long id) {
         HouseFile entity = targetService.getById(id);
         return ResultBody.ok().data(entity);

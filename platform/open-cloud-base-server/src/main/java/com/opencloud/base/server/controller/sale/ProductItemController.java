@@ -22,7 +22,7 @@ import java.util.Map;
  * @author liyueping
  * @date 2019-11-29
  */
-@Api(value = "产品表", tags = "产品表")
+//@Api(value = "产品表", tags = "产品表")
 @RestController
 @RequestMapping("productItem")
     public class ProductItemController {
