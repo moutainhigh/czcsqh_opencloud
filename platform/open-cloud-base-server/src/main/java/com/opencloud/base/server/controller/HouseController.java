@@ -37,17 +37,25 @@ public class HouseController {
      *
      * @return
      */
-    @ApiOperation(value = "获取分页数据", notes = "获取分页数据")
+    @ApiOperation(value = "房源分页查询", notes = "首页房源列表的查询功能。提供租赁类型、户型、租金和地区的条件查询。")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "租赁类型，整租、合租等等" , name = "rentType" ,required = false),
+            @ApiImplicitParam(value = "户型" , name = "layout" ,required = false),
+            @ApiImplicitParam(value = "最大租金" , name = "maxRental" ,required = false),
+            @ApiImplicitParam(value = "最小租金" , name = "minRental" ,required = false),
+            @ApiImplicitParam(value = "区域" , name = "district" ,required = false),
+            @ApiImplicitParam(value = "当前页数" , name = "page" ,required = false),
+            @ApiImplicitParam(value = "每页条数" , name = "limit" ,required = false),
+    })
     @GetMapping(value = "/list")
     public ResultBody<IPage<House>> list(@RequestParam(required = false) Map map) {
-
         return ResultBody.ok().data(targetService.findListPage(new PageParams(map)));
     }
 
     /**
      * 根据ID查找数据
      */
-    @ApiOperation(value = "根据ID查找数据", notes = "根据ID查找数据")
+    @ApiOperation(value = "使用房源id获取房源记录", notes = "使用房源id获取房源记录")
     @ResponseBody
     @GetMapping("/get")
     public ResultBody<House> get(@RequestParam("id") Long id) {
@@ -60,7 +68,7 @@ public class HouseController {
      *
      * @return
      */
-    @ApiOperation(value = "添加数据", notes = "添加数据")
+    @ApiOperation(value = "添加房源", notes = "添加房源")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "houseOwnerId", required = true, value = "房东id", paramType = "form"),
             @ApiImplicitParam(name = "userId", required = true, value = "用户id", paramType = "form"),
@@ -121,7 +129,7 @@ public class HouseController {
      *
      * @return
      */
-    @ApiOperation(value = "更新数据", notes = "更新数据")
+    @ApiOperation(value = "更新房源", notes = "更新房源")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "houseId", required = true, value = "", paramType = "form"),
             @ApiImplicitParam(name = "houseOwnerId", required = true, value = "房东id", paramType = "form"),
