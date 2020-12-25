@@ -100,7 +100,7 @@ public class HouseServiceImpl extends BaseServiceImpl<HouseMapper, House> implem
             //是否已收藏
             if(OpenHelper.getUserId() != null){
                 QueryWrapper<Favorite> favoriteQueryWrapper = new QueryWrapper<>();
-                favoriteQueryWrapper.lambda().eq(Favorite::getUserId,OpenHelper.getUserId()).in(Favorite::getHouseId);
+                favoriteQueryWrapper.lambda().eq(Favorite::getUserId,OpenHelper.getUserId()).in(Favorite::getHouseId,houseIdList);
                 List<Favorite> favoriteList = favoriteService.list(favoriteQueryWrapper);
                 for(int i=0;i<favoriteList.size();i++){
                     Favorite tempFavorite =favoriteList.get(i);
