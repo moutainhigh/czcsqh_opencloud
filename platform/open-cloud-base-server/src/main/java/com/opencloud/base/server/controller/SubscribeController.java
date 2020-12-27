@@ -36,7 +36,7 @@ import java.util.Map;
     *
     * @return
     */
-    @ApiOperation(value = "获取我的约看分页数据", notes = "获取我的约看分页数据")
+    @ApiOperation(value = "获取我的约看分页数据", notes = "获取我的约看分页数据,普通用户调用时获取的是用户自身预约的列表，房东调用时获取的是该房东被预约的列表")
     @GetMapping(value = "/list")
     public ResultBody<IPage<Subscribe>>list(@RequestParam(required = false) Map map){
         return ResultBody.ok().data(targetService.list(new PageParams(map)));

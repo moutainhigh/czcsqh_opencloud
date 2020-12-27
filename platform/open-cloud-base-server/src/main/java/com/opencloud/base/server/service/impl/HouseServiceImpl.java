@@ -53,8 +53,8 @@ public class HouseServiceImpl extends BaseServiceImpl<HouseMapper, House> implem
         House query = pageParams.mapToObject(House.class);
         Object minRental = pageParams.getRequestMap().get("minRental");
         Object maxRental = pageParams.getRequestMap().get("maxRental");
-        BigDecimal min = minRental == null ? BigDecimal.ZERO : new BigDecimal(minRental.toString());
-        BigDecimal max = maxRental == null ? new BigDecimal(99999) : new BigDecimal(maxRental.toString());
+        BigDecimal min = ObjectUtils.isEmpty(minRental) ? BigDecimal.ZERO : new BigDecimal(minRental.toString());
+        BigDecimal max = ObjectUtils.isEmpty(maxRental) ? new BigDecimal(9999999) : new BigDecimal(maxRental.toString());
         //对租赁类型、户型、租金做筛选
         QueryWrapper<House> queryWrapper = new QueryWrapper();
         queryWrapper.lambda().eq(ObjectUtils.isNotEmpty(query.getRentType()),House::getRentType,query.getRentType())

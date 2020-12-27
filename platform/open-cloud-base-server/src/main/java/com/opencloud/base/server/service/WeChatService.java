@@ -14,7 +14,7 @@ public interface WeChatService {
 
 
 
-    Map<String, Object> wxminiLogin(String code , String type);
+    Map<String, Object> wxminiLogin(String code);
 
     Map<String,String> getJSSDKConfig(String url);
 

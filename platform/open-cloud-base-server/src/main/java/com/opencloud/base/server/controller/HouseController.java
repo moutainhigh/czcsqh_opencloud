@@ -2,10 +2,17 @@ package com.opencloud.base.server.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
+import com.opencloud.base.client.constants.BaseConstants;
+import com.opencloud.base.client.model.entity.BaseUser;
 import com.opencloud.base.client.model.entity.House;
+import com.opencloud.base.client.model.entity.HouseOwner;
+import com.opencloud.base.server.service.BaseUserService;
+import com.opencloud.base.server.service.HouseOwnerService;
 import com.opencloud.base.server.service.HouseService;
 import com.opencloud.common.model.PageParams;
 import com.opencloud.common.model.ResultBody;
+import com.opencloud.common.security.OpenHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -31,6 +38,10 @@ public class HouseController {
 
     @Autowired
     private HouseService targetService;
+    @Autowired
+    private BaseUserService userService;
+    @Autowired
+    private HouseOwnerService houseOwnerService;
 
     /**
      * 获取分页数据
@@ -56,10 +67,11 @@ public class HouseController {
      * 根据ID查找数据
      */
     @ApiOperation(value = "使用房源id获取房源记录", notes = "使用房源id获取房源记录")
+    @ApiImplicitParams({@ApiImplicitParam(value = "房源id" , name = "houseId" ,required = true)})
     @ResponseBody
-    @GetMapping("/get")
-    public ResultBody<House> get(@RequestParam("id") Long id) {
-        House entity = targetService.getById(id);
+    @GetMapping("/getDetailById")
+    public ResultBody<House> getDetailById(@RequestParam("id") Long id) {
+        House entity = targetService.getDetailById(id);
         return ResultBody.ok().data(entity);
     }
 
@@ -188,7 +200,31 @@ public class HouseController {
         return ResultBody.ok();
     }
 
+    @ApiOperation(value = "我的房源列表" , notes = "分页获取我的房源列表，该接口房东可用")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "当前页数" , name = "page" ,required = false),
+            @ApiImplicitParam(value = "每页条数" , name = "limit" ,required = false)
+    })
+    @GetMapping("/getMyHouseList")
+    public ResultBody<IPage> getMyHouseList(@RequestParam(value = "page",defaultValue = "1")Integer page,
+                                            @RequestParam(value = "limit",defaultValue = "10")Integer limit){
+        //先判断是不是房东身份
+        BaseUser user = userService.getUserById(OpenHelper.getUserId());
+        if(ObjectUtils.isNotEmpty(user) && user.getUserType().equals(BaseConstants.USER_TYPE_HOUSE_OWNER)){
+            //获取自身的房东id
+            QueryWrapper<HouseOwner> houseOwnerQueryWrapper = new QueryWrapper<>();
+            houseOwnerQueryWrapper.lambda().eq(HouseOwner::getUserId,user.getUserId());
+            HouseOwner houseOwner = houseOwnerService.getOne(houseOwnerQueryWrapper);
 
+            PageParams pageParams = new PageParams();
+            pageParams.setLimit(limit);
+            pageParams.setPage(page);
 
+            QueryWrapper<House> houseQueryWrapper = new QueryWrapper<>();
+            houseQueryWrapper.lambda().eq(House::getHouseOwnerId,houseOwner.getHouseOwnerId()).orderByDesc(House::getCreateTime);
+            return ResultBody.ok().data(targetService.page(pageParams,houseQueryWrapper));
+        }
+        return ResultBody.failed().msg("身份信息有误");
+    }
 
 }

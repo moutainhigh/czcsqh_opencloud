@@ -23,10 +23,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -380,6 +377,19 @@ public class BaseUserController implements IBaseUserServiceClient {
         return ResultBody.ok().data(returnMap);
     }
 
+    /**
+     * 小程序登陆接口
+     */
+    @ApiOperation(value = "小程序登陆接口",notes = "小程序登陆接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "code",name = "code",required = true)
+    })
+    @ResponseBody
+    @PostMapping("/user/wxminiLogin")
+    public ResultBody wxminiLogin(@RequestParam(value = "code")String code){
+        Map<String, Object> returnMap = weChatService.wxminiLogin(code);
+        return ResultBody.ok().data(returnMap);
+    }
 
     @ApiOperation(value = "小程序注册用户" , notes = "小程序注册用户")
     @ApiImplicitParams({

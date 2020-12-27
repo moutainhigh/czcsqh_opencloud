@@ -88,22 +88,26 @@ public class House extends AbstractEntity {
     @ApiModelProperty(value = "房源具体地址")
     private String addressDetail;
 
-    @ApiModelProperty(value = "房源状态")
+    @ApiModelProperty(value = "房源状态，1-有效，0-无效")
     private Integer status;
 
     //封面地址
+    @ApiModelProperty(value = "封面图")
     @TableField(exist = false)
     private String coverImgUrl;
 
     //标签
+    @ApiModelProperty(value = "房源标签")
     @TableField(exist = false)
     private List<String> label;
 
     //附带的一些信息
+    @ApiModelProperty(value = "附加信息")
     @TableField(exist = false)
     private List<Map> attachInfo;
 
     //是否收藏了
+    @ApiModelProperty(value = "用户是否收藏了，空表示没收藏，true表示收藏了")
     @TableField(exist = false)
     private String isFavorite;
 }

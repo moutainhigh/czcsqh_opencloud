@@ -80,13 +80,9 @@ public class WeChatServiceImpl implements WeChatService {
     private RedisTemplate redisTemplate;
 
     @Override
-    public Map<String, Object> wxminiLogin(String code, String type) {
+    public Map<String, Object> wxminiLogin(String code) {
         Jscode2sessionResult jscode2sessionResult =null;
-        if("consumer".equals(type)){
-            jscode2sessionResult = SnsAPI.jscode2session(wxMiniAppid, wxMiniAppsecret, code);
-        }else if("doctor".equals(type)){
-            //jscode2sessionResult = SnsAPI.jscode2session(wxMiniDoctorAppid, wxMiniDoctorAppsecret, code);
-        }
+        jscode2sessionResult = SnsAPI.jscode2session(wxMiniAppid, wxMiniAppsecret, code);
 
         QueryWrapper<BaseAccount> accountQueryWrapper = new QueryWrapper<BaseAccount>();
         accountQueryWrapper.lambda().eq(BaseAccount::getAccountType, MINIAPP_ACCOUNT_TYPE)
