@@ -37,12 +37,8 @@ import java.util.Map;
     */
     @ApiOperation(value = "获取所有房源标签", notes = "获取所有房源标签")
     @GetMapping(value = "/list")
-    public ResultBody<IPage<Label>>list(@RequestParam(required = false) Map map){
-        PageParams pageParams = new PageParams(map);
-        pageParams.setPage(1);
-        pageParams.setSize(9999);
-        QueryWrapper<Label> queryWrapper = new QueryWrapper();
-        return ResultBody.ok().data(targetService.page(pageParams,queryWrapper));
+    public ResultBody<IPage<Label>>list(){
+        return ResultBody.ok().data(targetService.list());
     }
 
     @ApiOperation(value = "增加房源标签",notes = "增加房源标签")

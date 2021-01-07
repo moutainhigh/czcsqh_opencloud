@@ -37,12 +37,8 @@ import java.util.Map;
     */
     @ApiOperation(value = "获取全部全局配置", notes = "获取全部全局配置")
     @GetMapping(value = "/list")
-    public ResultBody<IPage<GlobalConfig>>list(@RequestParam(required = false) Map map){
-        PageParams pageParams = new PageParams(map);
-        pageParams.setPage(1);
-        pageParams.setSize(9999);
-        QueryWrapper<GlobalConfig> queryWrapper = new QueryWrapper();
-        return ResultBody.ok().data(targetService.page(pageParams,queryWrapper));
+    public ResultBody<IPage<GlobalConfig>>list(){
+        return ResultBody.ok().data(targetService.list());
     }
 
     /**

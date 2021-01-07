@@ -34,9 +34,8 @@ public class HomeAppliancesTypeController {
      */
     @ApiOperation(value = "获取所有家电数据", notes = "获取所有家电数据")
     @GetMapping(value = "/list")
-    public ResultBody<List<HomeAppliancesType>> list(@RequestParam(required = false) Map map) {
-        QueryWrapper<HomeAppliancesType> queryWrapper = new QueryWrapper();
-        return ResultBody.ok().data(targetService.list(queryWrapper));
+    public ResultBody<List<HomeAppliancesType>> list() {
+        return ResultBody.ok().data(targetService.list());
     }
 
 //    /**

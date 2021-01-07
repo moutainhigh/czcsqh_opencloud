@@ -36,13 +36,10 @@ public class KingKongController {
      */
     @ApiOperation(value = "获取所有金刚区数据", notes = "获取所有金刚区数据")
     @GetMapping(value = "/list")
-    public ResultBody<IPage<KingKong>> list(@RequestParam(required = false) Map map) {
-        PageParams pageParams = new PageParams(map);
-        pageParams.setSize(9999);
-        pageParams.setPage(1);
+    public ResultBody<IPage<KingKong>> list() {
         QueryWrapper<KingKong> queryWrapper = new QueryWrapper();
         queryWrapper.lambda().orderByAsc(KingKong::getSort);
-        return ResultBody.ok().data(targetService.page(pageParams, queryWrapper));
+        return ResultBody.ok().data(targetService.list(queryWrapper));
     }
 
     /**
