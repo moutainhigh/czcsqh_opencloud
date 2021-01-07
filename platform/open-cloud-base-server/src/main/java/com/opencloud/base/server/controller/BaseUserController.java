@@ -34,7 +34,7 @@ import java.util.Map;
  *
  * @author liuyadu
  */
-@Api(tags = "系统用户管理")
+//@Api(tags = "系统用户管理")
 @RestController
 public class BaseUserController implements IBaseUserServiceClient {
     @Autowired

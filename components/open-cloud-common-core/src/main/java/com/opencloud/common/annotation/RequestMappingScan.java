@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -64,8 +65,13 @@ public class RequestMappingScan implements ApplicationListener<ApplicationReadyE
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         ConfigurableApplicationContext applicationContext = event.getApplicationContext();
+        Map<String, Object> resourceServer = applicationContext.getBeansWithAnnotation(EnableResourceServer.class);
         amqpTemplate = applicationContext.getBean(RabbitTemplate.class);
-        if (amqpTemplate == null || scanProperties == null || !scanProperties.isRegisterRequestMapping()) {
+        if (amqpTemplate == null) {
+            return;
+        }
+        if (resourceServer == null || resourceServer.isEmpty()) {
+            // 只扫描资源服务器
             return;
         }
         Environment env = applicationContext.getEnvironment();
