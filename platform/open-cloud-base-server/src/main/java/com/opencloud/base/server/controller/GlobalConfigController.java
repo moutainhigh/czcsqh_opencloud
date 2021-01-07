@@ -48,7 +48,7 @@ import java.util.Map;
     /**
      * 根据ID查找数据
      */
-    @ApiOperation(value = "根据ID查找数据", notes = "根据ID查找数据")
+    @ApiOperation(value = "根据ID获取全局配置", notes = "根据ID获取全局配置")
     @ResponseBody
     @GetMapping("/get")
     public ResultBody<GlobalConfig> get(@RequestParam("id") Long id){
@@ -60,7 +60,7 @@ import java.util.Map;
     * 添加数据
     * @return
     */
-    @ApiOperation(value = "添加数据", notes = "添加数据")
+    @ApiOperation(value = "添加全局配置", notes = "添加全局配置")
     @ApiImplicitParams({
          @ApiImplicitParam(name = "globalName", required = true, value = "配置名", paramType = "form"),
          @ApiImplicitParam(name = "globalValue", required = true, value = "配置值", paramType = "form")
@@ -81,7 +81,7 @@ import java.util.Map;
     * 更新数据
     * @return
     */
-    @ApiOperation(value = "更新数据", notes = "更新数据")
+    @ApiOperation(value = "更新全局配置", notes = "更新全局配置")
     @ApiImplicitParams({
                     @ApiImplicitParam(name = "globalConfigId", required = true, value = "", paramType = "form"),
                     @ApiImplicitParam(name = "globalName", required = true, value = "配置名", paramType = "form"),

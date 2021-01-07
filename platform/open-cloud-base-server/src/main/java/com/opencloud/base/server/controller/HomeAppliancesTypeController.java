@@ -1,20 +1,16 @@
 package com.opencloud.base.server.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.opencloud.base.client.model.entity.HomeAppliancesType;
 import com.opencloud.base.server.service.HomeAppliancesTypeService;
 import com.opencloud.common.model.PageParams;
 import com.opencloud.common.model.ResultBody;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,24 +32,22 @@ public class HomeAppliancesTypeController {
      *
      * @return
      */
-    @ApiOperation(value = "获取分页数据", notes = "获取分页数据")
+    @ApiOperation(value = "获取所有家电数据", notes = "获取所有家电数据")
     @GetMapping(value = "/list")
-    public ResultBody<IPage<HomeAppliancesType>> list(@RequestParam(required = false) Map map) {
-        PageParams pageParams = new PageParams(map);
-        HomeAppliancesType query = pageParams.mapToObject(HomeAppliancesType.class);
+    public ResultBody<List<HomeAppliancesType>> list(@RequestParam(required = false) Map map) {
         QueryWrapper<HomeAppliancesType> queryWrapper = new QueryWrapper();
-        return ResultBody.ok().data(targetService.page(pageParams, queryWrapper));
+        return ResultBody.ok().data(targetService.list(queryWrapper));
     }
 
-    /**
-     * 根据ID查找数据
-     */
-    @ApiOperation(value = "根据ID查找数据", notes = "根据ID查找数据")
-    @ResponseBody
-    @GetMapping("/get")
-    public ResultBody<HomeAppliancesType> get(@RequestParam("id") Long id) {
-        HomeAppliancesType entity = targetService.getById(id);
-        return ResultBody.ok().data(entity);
-    }
+//    /**
+//     * 根据ID查找数据
+//     */
+//    @ApiOperation(value = "根据ID查找数据", notes = "根据ID查找数据")
+//    @ResponseBody
+//    @GetMapping("/get")
+//    public ResultBody<HomeAppliancesType> get(@RequestParam("id") Long id) {
+//        HomeAppliancesType entity = targetService.getById(id);
+//        return ResultBody.ok().data(entity);
+//    }
 
 }
