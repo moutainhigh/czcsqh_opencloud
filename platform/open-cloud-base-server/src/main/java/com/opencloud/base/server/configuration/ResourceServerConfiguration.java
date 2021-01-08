@@ -77,8 +77,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                         "/developer/info",
                         "/developer/login",
                         "/house/list",
-                        "/house/list",
-                        "/kingKong/list"
+                        "/kingKong/list",
+                        "/homeAppliancesType/list",
+                        "/label/list"
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and()

@@ -65,6 +65,43 @@ public class HouseServiceImpl extends BaseServiceImpl<HouseMapper, House> implem
                             .le(ObjectUtils.isNotEmpty(maxRental),House::getRental,max);
         IPage resultPage = houseMapper.selectPage(pageParams,queryWrapper);
         List<House> houseList = resultPage.getRecords();
+        houseList = fillHouseInfo(houseList);
+        return resultPage;
+    }
+
+    @Override
+    public House getDetailById(Long houseId) {
+        House house = this.getById(houseId);
+        //然后把房源的配置查出来
+        QueryWrapper<HouseHomeAppliances> houseHomeAppliancesQueryWrapper = new QueryWrapper<>();
+        houseHomeAppliancesQueryWrapper.lambda().eq(HouseHomeAppliances::getHouseId,house.getHouseId());
+        List<HouseHomeAppliances> houseHomeAppliances = houseHomeAppliancesService.list(houseHomeAppliancesQueryWrapper);
+        //然后把房东信息查出来
+        QueryWrapper<HouseOwner> houseOwnerQueryWrapper = new QueryWrapper<>();
+        houseOwnerQueryWrapper.lambda().eq(HouseOwner::getHouseOwnerId,house.getHouseOwnerId());
+        HouseOwner houseOwner = houseOwnerService.getOne(houseOwnerQueryWrapper);
+        //然后把房源的图片和视频查出来
+        QueryWrapper<HouseFile> houseFileQueryWrapper = new QueryWrapper<>();
+        houseFileQueryWrapper.lambda().eq(HouseFile::getHouseId,house.getHouseId());
+        List<HouseFile> houseFiles = houseFileService.list(houseFileQueryWrapper);
+        //然后把房源的标签集查出来
+        QueryWrapper<HouseLabel> houseLabelQueryWrapper = new QueryWrapper<>();
+        houseLabelQueryWrapper.lambda().eq(HouseLabel::getHouseId,house.getHouseId());
+        List<HouseLabel> houseLabels = houseLabelService.list(houseLabelQueryWrapper);
+
+        return null;
+    }
+
+    @Override
+    public List<House> getHouseByIdBatch(List<Long> houseIdList) {
+        QueryWrapper<House> houseQueryWrapper = new QueryWrapper<>();
+        houseQueryWrapper.lambda().in(House::getHouseId,houseIdList);
+        List<House> resultList = this.list(houseQueryWrapper);
+        return fillHouseInfo(resultList);
+    }
+
+    /* =============================== 以下是类似工具类一样的方法，业务方法请放在这条线上面 ===================================*/
+    private List<House> fillHouseInfo(List<House> houseList){
         if(ObjectUtils.isNotEmpty(houseList)){
             //拼接信息
             //封面图
@@ -98,7 +135,7 @@ public class HouseServiceImpl extends BaseServiceImpl<HouseMapper, House> implem
                 tempHouse.setLabel(labelList);
             }
             //是否已收藏
-            if(OpenHelper.getUserId() != null){
+            if(OpenHelper.getUser()!=null){
                 QueryWrapper<Favorite> favoriteQueryWrapper = new QueryWrapper<>();
                 favoriteQueryWrapper.lambda().eq(Favorite::getUserId,OpenHelper.getUserId()).in(Favorite::getHouseId,houseIdList);
                 List<Favorite> favoriteList = favoriteService.list(favoriteQueryWrapper);
@@ -113,29 +150,6 @@ public class HouseServiceImpl extends BaseServiceImpl<HouseMapper, House> implem
                 }
             }
         }
-        return resultPage;
-    }
-
-    @Override
-    public House getDetailById(Long houseId) {
-        House house = this.getById(houseId);
-        //然后把房源的配置查出来
-        QueryWrapper<HouseHomeAppliances> houseHomeAppliancesQueryWrapper = new QueryWrapper<>();
-        houseHomeAppliancesQueryWrapper.lambda().eq(HouseHomeAppliances::getHouseId,house.getHouseId());
-        List<HouseHomeAppliances> houseHomeAppliances = houseHomeAppliancesService.list(houseHomeAppliancesQueryWrapper);
-        //然后把房东信息查出来
-        QueryWrapper<HouseOwner> houseOwnerQueryWrapper = new QueryWrapper<>();
-        houseOwnerQueryWrapper.lambda().eq(HouseOwner::getHouseOwnerId,house.getHouseOwnerId());
-        HouseOwner houseOwner = houseOwnerService.getOne(houseOwnerQueryWrapper);
-        //然后把房源的图片和视频查出来
-        QueryWrapper<HouseFile> houseFileQueryWrapper = new QueryWrapper<>();
-        houseFileQueryWrapper.lambda().eq(HouseFile::getHouseId,house.getHouseId());
-        List<HouseFile> houseFiles = houseFileService.list(houseFileQueryWrapper);
-        //然后把房源的标签集查出来
-        QueryWrapper<HouseLabel> houseLabelQueryWrapper = new QueryWrapper<>();
-        houseLabelQueryWrapper.lambda().eq(HouseLabel::getHouseId,house.getHouseId());
-        List<HouseLabel> houseLabels = houseLabelService.list(houseLabelQueryWrapper);
-
-        return null;
+        return houseList;
     }
 }

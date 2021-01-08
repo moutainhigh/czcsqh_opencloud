@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,8 +56,8 @@ public class HouseController {
             @ApiImplicitParam(value = "最大租金" , name = "maxRental" ,required = false),
             @ApiImplicitParam(value = "最小租金" , name = "minRental" ,required = false),
             @ApiImplicitParam(value = "区域" , name = "district" ,required = false),
-            @ApiImplicitParam(value = "当前页数" , name = "page" ,required = false),
-            @ApiImplicitParam(value = "每页条数" , name = "limit" ,required = false),
+            @ApiImplicitParam(value = "当前页数" , name = "page" ,required = false ,defaultValue = "1"),
+            @ApiImplicitParam(value = "每页条数" , name = "limit" ,required = false ,defaultValue = "10"),
     })
     @GetMapping(value = "/list")
     public ResultBody<IPage<House>> list(@RequestParam(required = false) Map map) {
@@ -227,4 +228,12 @@ public class HouseController {
         return ResultBody.failed().msg("身份信息有误");
     }
 
+    @ApiOperation(value = "根据房源id获取房源信息（批量）" ,notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "houseIdList" ,value = "房源id列表" ,dataType = "int")
+    })
+    @GetMapping("/getHouseByIdBatch")
+    public ResultBody getHouseByIdBatch(@RequestParam(value = "houseIdList")List<Long> houseIdList){
+        return ResultBody.ok().data(targetService.getHouseByIdBatch(houseIdList));
+    }
 }
